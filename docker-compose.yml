@@ -1,0 +1,23 @@
+version: '2'
+services:
+ couchdb:
+  image: couchdb
+  container_name: my_db
+  ports:
+    - 5984:5984
+  environment:
+    COUCHDB_USER: asad
+    COUCHDB_PASSWORD: asad
+
+ web:
+  image: asadzaidi625/nodeclient
+  container_name: nodeclient
+  build: .
+  ports:
+    - 8082:3000
+  depends_on:
+    - couchdb
+  links:
+    - couchdb
+  environment: 
+    DB_URL: http://asad:asad@couchdb:5984
